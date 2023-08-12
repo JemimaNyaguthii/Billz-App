@@ -1,10 +1,10 @@
 package com.example.billsmanagement.model
 
+import com.google.gson.annotations.SerializedName
+
 data class LoginResponse(
 var message:String,
-//var message:String,
-var user:User
-//var user_id:String,
-//var access_token:String
+@SerializedName("user_id")var user_id:String,
+@SerializedName("access_token")var access_token:String
 
 )

@@ -26,7 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="First Name"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="20dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -48,7 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Last Name"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="20dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -126,13 +126,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="156dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="156dp"
         android:backgroundTint="@color/white"
         android:text="sign up"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tilConfirm" />
 

@@ -19,7 +19,7 @@
             android:name=".ui.HomePage"
             android:exported="false" />
         <activity
-            android:name=".ui.SplashScreen"
+            android:name=".ui.SignUp"
             android:exported="false" />
         <activity
             android:name=".ui.Login"

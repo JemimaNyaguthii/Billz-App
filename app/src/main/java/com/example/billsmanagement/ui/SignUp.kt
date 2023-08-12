@@ -8,17 +8,17 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.example.billsmanagement.R
-import com.example.billsmanagement.databinding.ActivitySplashScreenBinding
+import com.example.billsmanagement.databinding.ActivitySignUpBinding
 import com.example.billsmanagement.model.RegisterRequest
 import com.example.billsmanagement.viewmodel.UserViewModel
 
-class SplashScreen : AppCompatActivity() {
-    lateinit var binding: ActivitySplashScreenBinding
+class SignUp : AppCompatActivity() {
+    lateinit var binding: ActivitySignUpBinding
     val userViewModel:UserViewModel by  viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        binding = ActivitySplashScreenBinding.inflate(layoutInflater)
+        binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
     }
     override fun onResume() {
@@ -32,6 +32,7 @@ class SplashScreen : AppCompatActivity() {
             binding.pbRegister.visibility=View.GONE
             val intent= Intent(this, Login::class.java)
             startActivity(intent)
+            finish()
         })
 
         userViewModel.regLiveData.observe(this, Observer { regResponse->
@@ -39,6 +40,7 @@ class SplashScreen : AppCompatActivity() {
             Toast.makeText(this,regResponse.message,Toast.LENGTH_LONG).show()
             val intent= Intent(this, Login::class.java)
             startActivity(intent)
+            finish()
         })
     }
     fun validateRegistration() {
@@ -50,28 +52,28 @@ class SplashScreen : AppCompatActivity() {
         val confirm=binding.etConfirm.text.toString()
         var error = false
         if (firstName.isBlank()) {
-            binding.tilFirstName.error = "Name required"
+            binding.tilFirstName.error = (getString(R.string.first_name_required))
             error=true
         }
         if (lastName.isBlank()) {
-            binding.tilLastName.error = "Name required"
+            binding.tilLastName.error = getString(R.string.last_name_required)
             error=true
         }
         if (phoneNumber.isBlank()) {
-            binding.tilPhoneNumber.error = "Phonenumber required"
+            binding.tilPhoneNumber.error = getString(R.string.phonenumber_required)
             error=true
         }
         if (email.isBlank()) {
-            binding.tilEmail.error = "Email required"
+            binding.tilEmail.error = getString(R.string.email_required)
             error=true
         }
 
         if (password.isBlank()) {
-            binding.tilPassword.error = "Password required"
+            binding.tilPassword.error = getString(R.string.password_required)
             error=true
         }
         if (confirm!=password){
-            binding.tilConfirm.error="Try again"
+            binding.tilConfirm.error= getString(R.string.try_again)
             error=true
         }
         if (!error){

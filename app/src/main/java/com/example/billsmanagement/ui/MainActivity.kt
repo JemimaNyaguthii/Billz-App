@@ -1,10 +1,12 @@
 package com.example.billsmanagement.ui
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import com.example.billsmanagement.databinding.ActivityMainBinding
+import com.example.billsmanagement.utils.Constants
 
 class MainActivity : AppCompatActivity() {
 //    the binding property is used to access the views in the activity xml
@@ -14,10 +16,26 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.hide()
-        Handler().postDelayed({
-            val intent = Intent(this@MainActivity, SplashScreen::class.java)
-            startActivity(intent)
-        },3000)
+//        Handler().postDelayed({
+//            val intent = Intent(this@MainActivity, Login::class.java)
+//            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
+//            startActivity(intent)
+//            finish()
+//        },3000)
+
+        redirectUser()
+    }
+    fun redirectUser(){
+        val sharedPrefs=getSharedPreferences(Constants.PREFS,Context.MODE_PRIVATE)
+        val userId=sharedPrefs.getString(Constants.USER_ID,Constants.EMPTY_STRING)
+        if (userId.isNullOrBlank()){
+            startActivity(Intent(this,Login::class.java))
+
+        }
+        else{
+            startActivity(Intent(this,HomePage::class.java))
+        }
+        finish()
     }
 }
 //        The onCreate() method for the MainActivity activity is called when the activity is first created. In this method,

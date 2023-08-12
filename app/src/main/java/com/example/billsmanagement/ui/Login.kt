@@ -1,5 +1,6 @@
 package com.example.billsmanagement.ui
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,7 +11,9 @@ import androidx.lifecycle.Observer
 import com.example.billsmanagement.R
 import com.example.billsmanagement.databinding.ActivityLoginBinding
 import com.example.billsmanagement.model.LoginRequest
+import com.example.billsmanagement.model.LoginResponse
 import com.example.billsmanagement.model.RegisterRequest
+import com.example.billsmanagement.utils.Constants
 import com.example.billsmanagement.viewmodel.LoginViewModel
 import com.example.billsmanagement.viewmodel.UserViewModel
 
@@ -29,18 +32,21 @@ class Login : AppCompatActivity() {
        binding.btnLogin.setOnClickListener {
            validateLogin()
        }
+       loginViewModel.logLiveData.observe(this, Observer { loginResponse ->
+           persistLogin(loginResponse)
+           binding.pdLogin.visibility = View.GONE
+           Toast.makeText(this, loginResponse.message, Toast.LENGTH_LONG).show()
+           val intent= Intent(this, HomePage::class.java)
+           startActivity(intent)
+           finish()
+       })
        loginViewModel.errorLiveData.observe(this, Observer { err->
            Toast.makeText(this,err, Toast.LENGTH_LONG).show()
            binding.pdLogin.visibility= View.GONE
            val intent= Intent(this, HomePage::class.java)
            startActivity(intent)
        })
-       loginViewModel.logLiveData.observe(this, Observer { loginResponse ->
-           binding.pdLogin.visibility = View.GONE
-           Toast.makeText(this, loginResponse.message, Toast.LENGTH_LONG).show()
-           val intent= Intent(this, HomePage::class.java)
-           startActivity(intent)
-       })
+
    }
 
        fun validateLogin() {
@@ -64,9 +70,15 @@ class Login : AppCompatActivity() {
                )
                binding.pdLogin.visibility= View.VISIBLE
                loginViewModel.loginUser(loginRequest)
-//               val intent= Intent(this, HomePage::class.java)
-//               startActivity(intent)
+
            }
        }
+    fun persistLogin(loginResponse: LoginResponse){
+        val sharedPrefs=getSharedPreferences(Constants.PREFS,Context.MODE_PRIVATE)
+        val editor=sharedPrefs.edit()
+        editor.putString(Constants.USER_ID,loginResponse.user_id)
+        editor.putString(Constants.ACCESS_TOKEN,loginResponse.access_token)
+        editor.apply()
+    }
    }
 
