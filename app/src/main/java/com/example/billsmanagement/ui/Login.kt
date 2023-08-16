@@ -31,22 +31,27 @@ class Login : AppCompatActivity() {
        setContentView(binding.root)
        binding.btnLogin.setOnClickListener {
            validateLogin()
-       }
+
        loginViewModel.logLiveData.observe(this, Observer { loginResponse ->
            persistLogin(loginResponse)
            binding.pdLogin.visibility = View.GONE
            Toast.makeText(this, loginResponse.message, Toast.LENGTH_LONG).show()
-           val intent= Intent(this, HomePage::class.java)
+           val intent = Intent(this, HomePage::class.java)
            startActivity(intent)
            finish()
        })
+       }
+
        loginViewModel.errorLiveData.observe(this, Observer { err->
            Toast.makeText(this,err, Toast.LENGTH_LONG).show()
            binding.pdLogin.visibility= View.GONE
-           val intent= Intent(this, HomePage::class.java)
-           startActivity(intent)
+//           val intent= Intent(this, HomePage::class.java)
+//           startActivity(intent)
        })
-
+           binding.tvSignUp.setOnClickListener {
+           val intent = Intent(this, SignUp::class.java)
+           startActivity(intent)
+       }
    }
 
        fun validateLogin() {
@@ -72,6 +77,7 @@ class Login : AppCompatActivity() {
                loginViewModel.loginUser(loginRequest)
 
            }
+
        }
     fun persistLogin(loginResponse: LoginResponse){
         val sharedPrefs=getSharedPreferences(Constants.PREFS,Context.MODE_PRIVATE)
@@ -82,3 +88,4 @@ class Login : AppCompatActivity() {
     }
    }
 
+//essyj jessy@gmail.com
