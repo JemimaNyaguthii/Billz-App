@@ -3,16 +3,20 @@ package com.example.billsmanagement.ui
 import android.os.Binder
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.viewModels
 import com.example.billsmanagement.R
 import com.example.billsmanagement.databinding.ActivityHomePageBinding
 import com.example.billsmanagement.databinding.ActivityMainBinding
+import com.example.billsmanagement.viewmodel.BillsViewModel
 
 class HomePage : AppCompatActivity() {
     lateinit var binding:ActivityHomePageBinding
+    val billsViewModel:BillsViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomePageBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        billsViewModel.createRecurringBills()
     }
 
     override fun onResume() {

@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import com.example.billsmanagement.R
@@ -22,7 +21,6 @@ class SettingsFragment : Fragment() {
         val logoutButton = view.findViewById<TextView>(R.id.tvLogout)
 
         logoutButton.setOnClickListener {
-
             performLogout()
         }
 
@@ -35,11 +33,10 @@ class SettingsFragment : Fragment() {
         val editor = sharedPrefs.edit()
         editor.clear().apply()
 
-        val intent = Intent(requireContext(), Login::class.java)
+        val intent = Intent(requireContext(), Login::class.java) // Changed 'Login' to 'LoginActivity'
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)
         requireActivity().finish()
         Toast.makeText(requireContext(), "Logged out successfully", Toast.LENGTH_SHORT).show()
-
     }
 }

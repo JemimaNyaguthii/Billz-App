@@ -47,7 +47,6 @@ class SignUp : AppCompatActivity() {
 
         userViewModel.regLiveData.observe(this, Observer { regResponse ->
             binding.pbRegister.visibility = View.GONE
-            Toast.makeText(this, regResponse.message, Toast.LENGTH_LONG).show()
             val intent = Intent(this, Login::class.java)
             startActivity(intent)
             finish()

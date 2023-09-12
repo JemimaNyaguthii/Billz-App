@@ -13,4 +13,12 @@
     <string name="settings">Settings</string>
     <string name="upcoming">Upcoming</string>
     <string name="summary">Summary</string>
+    <string name="amount_is_required">Amount is required</string>
+
+    <string-array name="frequencies">
+        <item>Weekly</item>
+        <item>Monthly</item>
+        <item>Quarterly</item>
+        <item>Annual</item>
+    </string-array>
 </resources>
