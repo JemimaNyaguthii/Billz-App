@@ -16,12 +16,13 @@ class HomePage : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityHomePageBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        billsViewModel.createRecurringBills()
+
     }
 
     override fun onResume() {
         super.onResume()
         setupBottomNav()
+        billsViewModel.createRecurringBills()
     }
     fun setupBottomNav(){
         binding.bnvHome.setOnItemSelectedListener { menuItem->

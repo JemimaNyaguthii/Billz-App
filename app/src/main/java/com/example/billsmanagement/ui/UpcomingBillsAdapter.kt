@@ -9,7 +9,7 @@ import com.example.billsmanagement.model.UpcomingBill
 
 class UpcomingBillsAdapter(var upcomingBill: List<UpcomingBill>):Adapter<UpcomingBillsViewHolder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UpcomingBillsViewHolder {
-    val binding= UpcomingBillsListItemBinding.inflate(LayoutInflater.from(parent.context))
+    var binding= UpcomingBillsListItemBinding.inflate(LayoutInflater.from(parent.context))
         return UpcomingBillsViewHolder(binding)
     }
 

@@ -27,6 +27,7 @@ class UpcomingBillsFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        getUpcomingBills()
 
     }
     fun getUpcomingBills(){

@@ -25,87 +25,97 @@ class BillsRepository {
             database.billDao().insertBills(bill)
         }
     }
+
     suspend fun insertUpcomingBill(upcomingBill: UpcomingBill) {
         withContext(Dispatchers.IO) {
             upcomingBillsDao.insertUpcomingBill(upcomingBill)
         }
     }
-    suspend fun createRecurringMonthlyBills(){
-        withContext(Dispatchers.IO){
-           val monthlyBills=billsDao.getRecurringBills(Constants.MONTHLY)
-            val startDate=DateTimeUtils.getFirstDayOfMonth()
-            val endDate= DateTimeUtils.getLastDayOfMonth()
-            val year= DateTimeUtils.getCurrentYear()
-            val month= DateTimeUtils.getCurrentMonth()
+
+    suspend fun createRecurringMonthlyBills() {
+        withContext(Dispatchers.IO) {
+            val monthlyBills = billsDao.getRecurringBills(Constants.MONTHLY)
+            val startDate = DateTimeUtils.getFirstDayOfMonth()
+            val endDate = DateTimeUtils.getLastDayOfMonth()
+            val year = DateTimeUtils.getCurrentYear()
+            val month = DateTimeUtils.getCurrentMonth()
             monthlyBills.forEach { bill ->
-                val existing=upcomingBillsDao.queryExistingBill(bill.billId,startDate, endDate)
-                if (existing.isEmpty()){
-              val newMonthlyBill=UpcomingBill(
-                upcomingBillId = UUID.randomUUID().toString(),
-                billId=bill.billId,
-                name = bill.name,
-                amount = bill.amount,
-                frequency =bill.frequency,
-                dueDate = "${bill.dueDate}/$month/$year",
-                userId = bill.userId,
-                paid = false
-            ) } } } }
-    suspend fun createRecurringWeeklyBills(){
-        withContext(Dispatchers.IO){
-            val weeklyBills=billsDao.getRecurringBills(Constants.WEEKLY)
-            val startDate=DateTimeUtils.getFirstDateOfWeek()
-            val endDate=DateTimeUtils.getLastDateOfWeek()
-            val month=DateTimeUtils.getCurrentMonth()
-            val year=DateTimeUtils.getCurrentYear()
-           weeklyBills.forEach { bill ->
-               val existingBill =
-                   upcomingBillsDao.queryExistingBill(bill.billId, startDate, endDate)
-               if (existingBill.isEmpty()) {
-                   val newWeeklyBill = UpcomingBill(
-                       upcomingBillId = UUID.randomUUID().toString(),
-                       billId = bill.billId,
-                       name = bill.name,
-                       amount = bill.amount,
-                       frequency = bill.frequency,
-                       dueDate = "${bill.dueDate}/$month/$year",
-                       userId = bill.userId,
-                       paid = false
-                   )
-                   upcomingBillsDao.insertUpcomingBill(newWeeklyBill)
-               }
-           }
-            }
-
-        }
-        suspend  fun createRecurringAnnualBills(){
-            withContext(Dispatchers.IO){
-                val annualBills=billsDao.getRecurringBills(Constants.ANNUAL)
-                val currentYear=DateTimeUtils.getCurrentYear()
-                val startDate="01/01/$currentYear"
-                val endDate="31/12/$currentYear"
-                annualBills.forEach { bill->
-                    val existing=upcomingBillsDao.queryExistingBill(bill.billId,startDate,endDate)
-                    if (existing.isEmpty()){
-                        val newAnnualBill=UpcomingBill(
-                            upcomingBillId = UUID.randomUUID().toString(),
-                            billId=bill.billId,
-                            name = bill.name,
-                            amount = bill.amount,
-                            frequency =bill.frequency,
-                            dueDate = "${bill.dueDate}/$currentYear",
-                            userId = bill.userId,
-                            paid = false
-                        )
-                        upcomingBillsDao.insertUpcomingBill(newAnnualBill)
-                    }
-                    }
+                val existing = upcomingBillsDao.queryExistingBill(bill.billId, startDate, endDate)
+                if (existing.isEmpty()) {
+                    val newMonthlyBill = UpcomingBill(
+                        upcomingBillId = UUID.randomUUID().toString(),
+                        billId = bill.billId,
+                        name = bill.name,
+                        amount = bill.amount,
+                        frequency = bill.frequency,
+                        dueDate = "${bill.dueDate}/$month/$year",
+                        userId = bill.userId,
+                        paid = false
+                    )
+                    upcomingBillsDao.insertUpcomingBill(newMonthlyBill)
                 }
-
             }
-    fun getUpcomingBillsByFrequency(freq:String):LiveData<List<UpcomingBill>>{
-        return upcomingBillsDao.getUpcomingBillsByFrequency(freq,false)
-    }
         }
+    }
+
+    suspend fun createRecurringWeeklyBills() {
+        withContext(Dispatchers.IO) {
+            val weeklyBills = billsDao.getRecurringBills(Constants.WEEKLY)
+            val startDate = DateTimeUtils.getFirstDateOfWeek()
+            val endDate = DateTimeUtils.getLastDateOfWeek()
+            val month = DateTimeUtils.getCurrentMonth()
+            val year = DateTimeUtils.getCurrentYear()
+            weeklyBills.forEach { bill ->
+                val existingBill =
+                    upcomingBillsDao.queryExistingBill(bill.billId, startDate, endDate)
+                if (existingBill.isEmpty()) {
+                    val newWeeklyBill = UpcomingBill(
+                        upcomingBillId = UUID.randomUUID().toString(),
+                        billId = bill.billId,
+                        name = bill.name,
+                        amount = bill.amount,
+                        frequency = bill.frequency,
+                        dueDate = "${bill.dueDate}/$month/$year",
+                        userId = bill.userId,
+                        paid = false
+                    )
+                    upcomingBillsDao.insertUpcomingBill(newWeeklyBill)
+                }
+            }
+        }
+
+    }
+
+    suspend fun createRecurringAnnualBills() {
+        withContext(Dispatchers.IO) {
+            val annualBills = billsDao.getRecurringBills(Constants.ANNUAL)
+            val currentYear = DateTimeUtils.getCurrentYear()
+            val startDate = "01/01/$currentYear"
+            val endDate = "31/12/$currentYear"
+            annualBills.forEach { bill ->
+                val existing = upcomingBillsDao.queryExistingBill(bill.billId, startDate, endDate)
+                if (existing.isEmpty()) {
+                    val newAnnualBill = UpcomingBill(
+                        upcomingBillId = UUID.randomUUID().toString(),
+                        billId = bill.billId,
+                        name = bill.name,
+                        amount = bill.amount,
+                        frequency = bill.frequency,
+                        dueDate = "${bill.dueDate}/$currentYear",
+                        userId = bill.userId,
+                        paid = false
+                    )
+                    upcomingBillsDao.insertUpcomingBill(newAnnualBill)
+                }
+            }
+        }
+
+    }
+
+    fun getUpcomingBillsByFrequency(freq: String): LiveData<List<UpcomingBill>> {
+        return upcomingBillsDao.getUpcomingBillsByFrequency(freq, false)
+    }
+}
 
 
 //crone job
