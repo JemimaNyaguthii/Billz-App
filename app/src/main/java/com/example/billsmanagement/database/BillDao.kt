@@ -13,4 +13,6 @@ interface BillDao {
     fun insertBills(bill: Bill)
     @Query("SELECT * FROM Bills WHERE frequency=:freq")
     fun getRecurringBills(freq: String): List<Bill>
+
+
 }

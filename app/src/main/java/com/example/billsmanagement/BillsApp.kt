@@ -12,6 +12,5 @@ class BillsApp:Application(){
     override fun onCreate() {
         super.onCreate()
         appContext=applicationContext
-//        give as access to the global application context
     }
 }

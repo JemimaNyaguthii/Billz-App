@@ -75,9 +75,7 @@ class Login : AppCompatActivity() {
                )
                binding.pdLogin.visibility= View.VISIBLE
                loginViewModel.loginUser(loginRequest)
-
            }
-
        }
     fun persistLogin(loginResponse: LoginResponse){
         val sharedPrefs=getSharedPreferences(Constants.PREFS,Context.MODE_PRIVATE)

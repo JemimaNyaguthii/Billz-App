@@ -5,15 +5,52 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.billsmanagement.R
+import com.example.billsmanagement.databinding.FragmentUpcomingBillsBinding
+import com.example.billsmanagement.utils.Constants
+import com.example.billsmanagement.viewmodel.BillsViewModel
 
 
 class UpcomingBillsFragment : Fragment() {
+    private var binding:FragmentUpcomingBillsBinding?=null
+    val billsViewModel:BillsViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        binding=FragmentUpcomingBillsBinding.inflate(inflater,container,false)
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_upcoming_bills, container, false)
+        return binding?.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+    }
+    fun getUpcomingBills(){
+        billsViewModel.getUpcomingBillsByFrequency(Constants.WEEKLY).observe(this){weeklyBills->
+            val adapter=UpcomingBillsAdapter(weeklyBills)
+            binding?.rvWeekly?.layoutManager=LinearLayoutManager(requireContext())
+            binding?.rvWeekly?.adapter=adapter
+
+        }
+        billsViewModel.getUpcomingBillsByFrequency(Constants.MONTHLY).observe(this){monthlyBills->
+            val adapter=UpcomingBillsAdapter(monthlyBills)
+            binding?.rvMonthly?.layoutManager=LinearLayoutManager(requireContext())
+            binding?.rvMonthly?.adapter=adapter
+
+        }
+        billsViewModel.getUpcomingBillsByFrequency(Constants.ANNUAL).observe(this){annualBills->
+            val adapter=UpcomingBillsAdapter(annualBills)
+            binding?.rvAnnual?.layoutManager=LinearLayoutManager(requireContext())
+            binding?.rvAnnual?.adapter=adapter
+
+        }
+    }
+    override fun onDestroy(){
+        super.onDestroy()
+        binding=null
     }
 }

@@ -32,6 +32,7 @@ class AddBillActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         setupFreqSpinner()
+        setupDpDueDate()
         binding.btnSaveBill.setOnClickListener {
             validateBill()
         }
