@@ -37,8 +37,6 @@ class BillsRepository {
             val monthlyBills = billsDao.getRecurringBills(Constants.MONTHLY)
             val startDate = DateTimeUtils.getFirstDayOfMonth()
             val endDate = DateTimeUtils.getLastDayOfMonth()
-            val year = DateTimeUtils.getCurrentYear()
-            val month = DateTimeUtils.getCurrentMonth()
             monthlyBills.forEach { bill ->
                 val existing = upcomingBillsDao.queryExistingBill(bill.billId, startDate, endDate)
                 if (existing.isEmpty()) {
@@ -48,7 +46,7 @@ class BillsRepository {
                         name = bill.name,
                         amount = bill.amount,
                         frequency = bill.frequency,
-                        dueDate = "${bill.dueDate}/$month/$year",
+                        dueDate = DateTimeUtils.createDateFromDay(bill.dueDate),
                         userId = bill.userId,
                         paid = false
                     )
@@ -75,7 +73,7 @@ class BillsRepository {
                         name = bill.name,
                         amount = bill.amount,
                         frequency = bill.frequency,
-                        dueDate = "${bill.dueDate}/$month/$year",
+                        dueDate = DateTimeUtils.createDateFromDay(bill.dueDate),
                         userId = bill.userId,
                         paid = false
                     )
@@ -90,8 +88,8 @@ class BillsRepository {
         withContext(Dispatchers.IO) {
             val annualBills = billsDao.getRecurringBills(Constants.ANNUAL)
             val currentYear = DateTimeUtils.getCurrentYear()
-            val startDate = "01/01/$currentYear"
-            val endDate = "31/12/$currentYear"
+            val startDate = "$currentYear-01-01"
+            val endDate = "$currentYear-12-31"
             annualBills.forEach { bill ->
                 val existing = upcomingBillsDao.queryExistingBill(bill.billId, startDate, endDate)
                 if (existing.isEmpty()) {
@@ -101,7 +99,7 @@ class BillsRepository {
                         name = bill.name,
                         amount = bill.amount,
                         frequency = bill.frequency,
-                        dueDate = "${bill.dueDate}/$currentYear",
+                        dueDate = "$currentYear-${bill.dueDate}",
                         userId = bill.userId,
                         paid = false
                     )
@@ -114,6 +112,14 @@ class BillsRepository {
 
     fun getUpcomingBillsByFrequency(freq: String): LiveData<List<UpcomingBill>> {
         return upcomingBillsDao.getUpcomingBillsByFrequency(freq, false)
+    }
+    suspend fun updateUpcomingBill(upcomingBill: UpcomingBill){
+        withContext(Dispatchers.IO){
+            upcomingBillsDao.updateUpcomingBill(upcomingBill)
+        }
+    }
+    fun getPaidBills():LiveData<List<UpcomingBill>>{
+        return upcomingBillsDao.getPaidBills()
     }
 }
 

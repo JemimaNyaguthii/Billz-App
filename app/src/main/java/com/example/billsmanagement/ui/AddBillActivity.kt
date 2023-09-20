@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.billsmanagement.databinding.ActivityAddBillBinding
 import com.example.billsmanagement.model.Bill
 import com.example.billsmanagement.utils.Constants
+import com.example.billsmanagement.utils.DateTimeUtils
 import com.example.billsmanagement.viewmodel.BillsViewModel
 import java.util.Calendar
 import java.util.UUID
@@ -49,7 +50,7 @@ class AddBillActivity : AppCompatActivity() {
                 when (binding.spFrequency.selectedItem.toString()) {
                     Constants.WEEKLY -> {
                         showSpinner()
-                        setUpDueDateSpinner(Array(7) { it + 1 })
+                        setUpDueDateSpinner(Array(31) { it + 1 })
                     }
 
                         Constants.MONTHLY -> {
@@ -103,7 +104,9 @@ class AddBillActivity : AppCompatActivity() {
         val amount = binding.etAmount.text.toString()
         val frequency = binding.spFrequency.selectedItem.toString()
         val dueDate = if(frequency==Constants.ANNUAL){
-            "$selectedDate/$selectedMonth"
+            DateTimeUtils
+                .createDateFromDayAndMonth(selectedDate,selectedMonth)
+                .substring(5)
         } else{
             binding.spDueDate.selectedItem.toString()
         }

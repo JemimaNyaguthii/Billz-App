@@ -5,16 +5,45 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.billsmanagement.R
+import com.example.billsmanagement.databinding.FragmentPaidBillsBinding
+import com.example.billsmanagement.model.UpcomingBill
+import com.example.billsmanagement.viewmodel.BillsViewModel
 
 
-class PaidBillsFragment : Fragment() {
-
+class PaidBillsFragment : Fragment(),OnClickBill {
+val billsViewModel:BillsViewModel by viewModels()
+    var binding:FragmentPaidBillsBinding?=null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_paid_bills, container, false)
+ binding=FragmentPaidBillsBinding.inflate(layoutInflater,container,false)
+        return binding?.root
+
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        billsViewModel.getPaidBills().observe(this){paidBills->
+            val adapter=UpcomingBillsAdapter(paidBills,this)
+            binding?.rvPaidBills?.layoutManager=LinearLayoutManager(requireContext())
+            binding?.rvPaidBills?.adapter=adapter
+
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding=null
+    }
+
+    override fun onCheckBoxMarked(upcomingBill: UpcomingBill) {
+        upcomingBill.paid=false
+        billsViewModel.updateUpcomingBill(upcomingBill)
+
     }
 }
