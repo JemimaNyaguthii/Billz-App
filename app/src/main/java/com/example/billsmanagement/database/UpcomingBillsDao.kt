@@ -19,7 +19,7 @@ interface UpcomingBillsDao {
     @Update (onConflict = OnConflictStrategy.REPLACE)
     fun updateUpcomingBill(upcomingBill: UpcomingBill)
 
-    @Query ("SELECT * FROM UpcomingBills WHERE paid=:paid ORDER BY dueDate")
+    @Query ("SELECT * FROM UpcomingBills WHERE paid=:paid ORDER BY dueDate DESC")
     fun getPaidBills(paid:Boolean=true):LiveData<List<UpcomingBill>>
 
 }

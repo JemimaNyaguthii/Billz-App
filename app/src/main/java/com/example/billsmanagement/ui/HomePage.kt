@@ -22,7 +22,7 @@ class HomePage : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         setupBottomNav()
-        billsViewModel.createRecurringBills()
+//        billsViewModel.createRecurringBills()
     }
     fun setupBottomNav(){
         binding.bnvHome.setOnItemSelectedListener { menuItem->

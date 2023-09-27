@@ -64,12 +64,10 @@ class AddBillActivity : AppCompatActivity() {
                 }
                 }
             }
-
             override fun onNothingSelected(parent: AdapterView<*>?) {
             }
         }
     }
-
     fun showSpinner() {
         binding.dpDueDate.hide()
         binding.spDueDate.show()

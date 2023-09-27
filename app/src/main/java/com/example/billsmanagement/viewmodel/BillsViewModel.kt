@@ -17,13 +17,14 @@ class BillsViewModel:ViewModel(){
             billRepo.saveBill(bill)
         }
     }
-    fun createRecurringBills(){
-        viewModelScope.launch {
-            billRepo.createRecurringMonthlyBills()
-            billRepo.createRecurringWeeklyBills()
-            billRepo.createRecurringAnnualBills()
-        }
-    }
+//    commented this because we want to implent the work manager
+//    fun createRecurringBills(){
+//        viewModelScope.launch {
+//            billRepo.createRecurringMonthlyBills()
+//            billRepo.createRecurringWeeklyBills()
+//            billRepo.createRecurringAnnualBills()
+//        }
+//    }
     fun getUpcomingBillsByFrequency(freq:String):LiveData<List<UpcomingBill>>{
         return billRepo.getUpcomingBillsByFrequency(freq)
     }
