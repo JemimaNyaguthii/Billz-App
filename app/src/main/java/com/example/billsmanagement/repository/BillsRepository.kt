@@ -1,10 +1,12 @@
 package com.example.billsmanagement.repository
 
-import android.hardware.ConsumerIrManager.CarrierFrequencyRange
+import android.content.Context
+import android.media.session.MediaSession.Token
 import androidx.lifecycle.LiveData
 import com.example.billsmanagement.BillsApp
+import com.example.billsmanagement.api.ApiClient
+import com.example.billsmanagement.api.ApiInterface
 import com.example.billsmanagement.database.BillDb
-import com.example.billsmanagement.database.UpcomingBillsDao
 import com.example.billsmanagement.model.Bill
 import com.example.billsmanagement.model.UpcomingBill
 import com.example.billsmanagement.utils.Constants
@@ -17,7 +19,7 @@ class BillsRepository {
     val database = BillDb.getDatabase(BillsApp.appContext)
     val billsDao = database.billDao()
     val upcomingBillsDao = database.upcomingBillsDao()
-//    val  billDao=database.billDao()
+    val apiClient= ApiClient.buildClient(ApiInterface::class.java)
 
     suspend fun saveBill(bill: Bill) {
 //        switching to ui thread
@@ -48,7 +50,8 @@ class BillsRepository {
                         frequency = bill.frequency,
                         dueDate = DateTimeUtils.createDateFromDay(bill.dueDate),
                         userId = bill.userId,
-                        paid = false
+                        paid = false,
+                        synced=false
                     )
                     upcomingBillsDao.insertUpcomingBill(newMonthlyBill)
                 }
@@ -75,7 +78,8 @@ class BillsRepository {
                         frequency = bill.frequency,
                         dueDate = DateTimeUtils.createDateFromDay(bill.dueDate),
                         userId = bill.userId,
-                        paid = false
+                        paid = false,
+                                synced=false
                     )
                     upcomingBillsDao.insertUpcomingBill(newWeeklyBill)
                 }
@@ -101,7 +105,8 @@ class BillsRepository {
                         frequency = bill.frequency,
                         dueDate = "$currentYear-${bill.dueDate}",
                         userId = bill.userId,
-                        paid = false
+                        paid = false,
+                                synced=false
                     )
                     upcomingBillsDao.insertUpcomingBill(newAnnualBill)
                 }
@@ -121,11 +126,66 @@ class BillsRepository {
     fun getPaidBills():LiveData<List<UpcomingBill>>{
         return upcomingBillsDao.getPaidBills()
     }
+
+fun getAuthToken():String{
+    val prefs=BillsApp.appContext.getSharedPreferences(Constants.PREFS,Context.MODE_PRIVATE)
+    var token =prefs.getString(Constants.ACCESS_TOKEN,Constants.EMPTY_STRING)
+    token="Bearer$token"
+    return token
 }
-
-
+suspend fun syncBills(){
+    withContext(Dispatchers.IO) {
+        var token=getAuthToken()
+        val unsyncedBills =billsDao.getUnsyncedBills()
+        unsyncedBills.forEach { bill ->
+            val response = apiClient.postBill(token,bill)
+            if (response.isSuccessful) {
+                bill.synced = true
+                billsDao.insertBills(bill)
+            }
+        }
+    }
+    }
+    suspend fun syncUpcomingBills(){
+        withContext(Dispatchers.IO){
+            var token=getAuthToken()
+            upcomingBillsDao.getUnsyncedUpcomingBills().forEach {upcomingBill ->
+                val response=apiClient.postUpcomingBill(token,upcomingBill)
+                if (response.isSuccessful){
+                    upcomingBill.synced=true
+                    upcomingBillsDao.updateUpcomingBill(upcomingBill)
+                }
+            }
+        }
+    }
+    suspend fun fetchRemoteBills(){
+        withContext(Dispatchers.IO){
+            val response=apiClient.fetchRemoteBills(getAuthToken())
+            if (response.isSuccessful){
+                response.body()?.forEach { bill ->
+                    bill.synced=true
+                    billsDao.insertBills(bill) }
+            }
+        }
+    }
+    suspend fun fetchRemoteUpcomingBills(){
+        withContext(Dispatchers.IO){
+            val response=apiClient.fetchRemoteUpcomingBills(getAuthToken())
+            if (response.isSuccessful){
+                response.body()?.forEach { upcomingBill ->
+                    upcomingBill.synced=true
+                    upcomingBillsDao.insertUpcomingBill(upcomingBill) }
+            }
+        }
+    }
+}
 //crone job
-//workmanager scheduling a task
+//workmanager
+
+
+//building summary fragment
+//        a toogle to indicate the summary is for this wweek ,monthly or the year
+//        paid and pending
 
 
 

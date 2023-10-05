@@ -10,8 +10,9 @@ class UpcomingBillsWorker(context: Context,workerParams:WorkerParameters):Corout
     val billsRepository=BillsRepository()
     override suspend fun doWork(): Result {
       billsRepository.createRecurringWeeklyBills()
-        billsRepository.createRecurringMonthlyBills()
-        billsRepository.createRecurringAnnualBills()
+      billsRepository.createRecurringMonthlyBills()
+      billsRepository.createRecurringAnnualBills()
         return Result.success()
     }
 }
+

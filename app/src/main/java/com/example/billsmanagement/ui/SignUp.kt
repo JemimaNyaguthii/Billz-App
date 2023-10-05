@@ -95,8 +95,7 @@ class SignUp : AppCompatActivity() {
                 password = password,
                 phoneNumber = phoneNumber
             )
-//            val intent= Intent(this, Login::class.java)
-//            startActivity(intent)
+
             binding.pbRegister.visibility = View.VISIBLE
             userViewModel.registerUser(registerRequest)
 

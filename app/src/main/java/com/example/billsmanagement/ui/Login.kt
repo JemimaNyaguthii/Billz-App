@@ -14,17 +14,23 @@ import com.example.billsmanagement.model.LoginRequest
 import com.example.billsmanagement.model.LoginResponse
 import com.example.billsmanagement.model.RegisterRequest
 import com.example.billsmanagement.utils.Constants
+import com.example.billsmanagement.viewmodel.BillsViewModel
 import com.example.billsmanagement.viewmodel.LoginViewModel
 import com.example.billsmanagement.viewmodel.UserViewModel
 
 class Login : AppCompatActivity() {
     lateinit var binding: ActivityLoginBinding
     val loginViewModel: LoginViewModel by viewModels()
+    val billsViewModel:BillsViewModel by viewModels ()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        binding.tvSignUp.setOnClickListener {
+            val intent = Intent(this, SignUp::class.java)
+            startActivity(intent)
+        }
     }
    override fun onResume() {
        super.onResume()
@@ -34,6 +40,8 @@ class Login : AppCompatActivity() {
 
        loginViewModel.logLiveData.observe(this, Observer { loginResponse ->
            persistLogin(loginResponse)
+           //    triggering the downloads and the updates in the summary fragment fetching the remote bills
+           billsViewModel.fetchRemoteBills()
            binding.pdLogin.visibility = View.GONE
            Toast.makeText(this, loginResponse.message, Toast.LENGTH_LONG).show()
            val intent = Intent(this, HomePage::class.java)
@@ -45,13 +53,8 @@ class Login : AppCompatActivity() {
        loginViewModel.errorLiveData.observe(this, Observer { err->
            Toast.makeText(this,err, Toast.LENGTH_LONG).show()
            binding.pdLogin.visibility= View.GONE
-//           val intent= Intent(this, HomePage::class.java)
-//           startActivity(intent)
        })
-           binding.tvSignUp.setOnClickListener {
-           val intent = Intent(this, SignUp::class.java)
-           startActivity(intent)
-       }
+
    }
 
        fun validateLogin() {

@@ -11,6 +11,7 @@ import com.example.billsmanagement.utils.DateTimeUtils
 class UpcomingBillsAdapter(var upcomingBill: List<UpcomingBill>,var onClickBill: OnClickBill):Adapter<UpcomingBillsViewHolder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UpcomingBillsViewHolder {
     val binding= UpcomingBillsListItemBinding.inflate(LayoutInflater.from(parent.context))
+
         return UpcomingBillsViewHolder(binding)
     }
 

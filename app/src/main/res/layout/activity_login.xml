@@ -45,6 +45,7 @@
             android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:password="true"
             android:hint="Password"
             android:textColor="@color/black"
             android:textSize="20dp" />

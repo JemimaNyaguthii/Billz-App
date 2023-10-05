@@ -1,8 +1,10 @@
 package com.example.billsmanagement.model
 
+import com.google.gson.annotations.Expose
+
 data class LoginRequest(
-var email:String,
-var password:String
+    @Expose var email:String,
+    @Expose var password:String
 )
 
 

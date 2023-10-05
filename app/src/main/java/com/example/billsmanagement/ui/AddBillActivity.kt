@@ -129,7 +129,8 @@ class AddBillActivity : AppCompatActivity() {
                 frequency = frequency,
                 dueDate = dueDate,
                 billId = UUID.randomUUID().toString(),
-                userId = userId.toString()
+                userId = userId.toString(),
+                synced=false
             )
             billsViewModel.saveBill(newBill)
             clearForm()

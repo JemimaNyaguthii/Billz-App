@@ -17,14 +17,6 @@ class BillsViewModel:ViewModel(){
             billRepo.saveBill(bill)
         }
     }
-//    commented this because we want to implent the work manager
-//    fun createRecurringBills(){
-//        viewModelScope.launch {
-//            billRepo.createRecurringMonthlyBills()
-//            billRepo.createRecurringWeeklyBills()
-//            billRepo.createRecurringAnnualBills()
-//        }
-//    }
     fun getUpcomingBillsByFrequency(freq:String):LiveData<List<UpcomingBill>>{
         return billRepo.getUpcomingBillsByFrequency(freq)
     }
@@ -35,6 +27,13 @@ fun updateUpcomingBill(upcomingBill: UpcomingBill){
 }
     fun getPaidBills():LiveData<List<UpcomingBill>>{
         return billRepo.getPaidBills()
+    }
+//    triggering the downloads and the updates in the summary fragment fetching the remote bills
+    fun fetchRemoteBills(){
+        viewModelScope.launch {
+            billRepo.fetchRemoteUpcomingBills()
+            billRepo.fetchRemoteBills()
+        }
     }
 }
 
