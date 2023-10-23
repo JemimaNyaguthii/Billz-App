@@ -1,57 +1,93 @@
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.SettingsFragment">
+    android:id="@+id/settingsRoot"
+    tools:context=".ui.SummaryFragment">
 
-
+    <View
+        android:id="@+id/divider"
+        android:layout_width="409dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="1dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvSycData" />
 
     <TextView
-        android:id="@+id/tvUsername"
+        android:id="@+id/tvLOgout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="29dp" />
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="16dp"
+        android:text="Log Out"
+        android:textSize="18dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider" />
 
-    <Spinner
-        android:id="@+id/spSummaryFreq"
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="409dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="28dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvLOgout" />
+
+    <TextView
+        android:id="@+id/tvAppVersion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="251dp"
+        android:layout_marginBottom="48dp"
+        android:text="App Version:1.0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tvSycData"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
+        android:textSize="18dp"
+        android:text="Syc Data"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.871"
-        app:layout_constraintStart_toEndOf="@+id/tvUsername"
+        app:layout_constraintHorizontal_bias="0.012"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cvPaid"
-        android:layout_width="409dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/guideline2"
-        app:layout_constraintTop_toBottomOf="@+id/spSummaryFreq" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
+    <ProgressBar
+        android:id="@+id/pbSync"
+        style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_parent="0.5" />
-
+        android:layout_marginStart="167dp"
+        android:layout_marginTop="43dp"
+        android:layout_marginEnd="196dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider2" />
 </androidx.constraintlayout.widget.ConstraintLayout>
-<!--<TextView-->
-<!--android:id="@+id/tvLogout"-->
-<!--android:layout_width="133dp"-->
-<!--android:layout_height="59dp"-->
-<!--android:drawableStart="@drawable/baseline_logout_24"-->
-<!--android:text="                 Logout"-->
-<!--android:textSize="20dp"-->
-<!--tools:layout_editor_absoluteX="0dp"-->
-<!--tools:layout_editor_absoluteY="309dp" />-->
+    <!--<androidx.recyclerview.widget.RecyclerView-->
+    <!--    android:id="@+id/rvBills"-->
+    <!--    android:layout_width="409dp"-->
+    <!--    android:layout_height="657dp"-->
+    <!--    android:layout_marginStart="1dp"-->
+    <!--    android:layout_marginTop="1dp"-->
+    <!--    android:layout_marginEnd="1dp"-->
+    <!--    android:layout_marginBottom="1dp"-->
+    <!--    app:layout_constraintBottom_toTopOf="@+id/fabAddBill"-->
+    <!--    app:layout_constraintEnd_toEndOf="parent"-->
+    <!--    app:layout_constraintStart_toStartOf="parent"-->
+    <!--    app:layout_constraintTop_toTopOf="parent" />-->

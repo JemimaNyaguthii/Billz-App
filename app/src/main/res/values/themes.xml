@@ -6,4 +6,12 @@
     </style>
 
     <style name="Theme.BillsManagement" parent="Base.Theme.BillsManagement" />
+<!--    <style name="tvSummaryStyle"parent="Theme.Billz">-->
+<!--        <item name="android:textStyle">@color/white</item>-->
+<!--        <item name="android:textSize">@color/white</item>-->
+<!--        <item name="android:tex">@color/white</item>-->
+<!--        <item name="android:textStyle">@color/white</item>-->
+
+
+<!--    </style>-->
 </resources>

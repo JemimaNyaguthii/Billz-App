@@ -5,7 +5,6 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
-import java.util.UUID
 
 @Entity(tableName = "Bills",
     indices=[Index(value=["name"],unique=true)])
@@ -15,7 +14,8 @@ data class Bill(
     @Expose var name:String,
     @Expose var amount: Double,
     @Expose var frequency:String,
-    @SerializedName("bill_id")var dueDate:String,
-    @SerializedName("user_id")var userId:String,
-    @Expose(serialize = false)var synced:Boolean
+    @Expose @SerializedName("due_date")var dueDate:String,
+    @Expose @SerializedName("user_id")var userId:String,
+//    @Expose(serialize = false)
+   var synced:Boolean
 )

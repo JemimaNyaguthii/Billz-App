@@ -9,10 +9,9 @@ class Constants {
         val USER_ID="USER_ID"
         val ACCESS_TOKEN="ACCESS_ID"
         val EMPTY_STRING=""
-        val UUID=""
-        val MONTHLY ="MONTHLY"
-        val ANNUAL="ANNUAL"
-        val WEEKLY="WEEKLY"
+        val MONTHLY ="Monthly"
+        val ANNUAL="Annual"
+        val WEEKLY="Weekly"
         val CREATE_RECURRING_BILLS="CREATE_RECURRING_BILLS"
     }
 }

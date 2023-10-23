@@ -32,13 +32,15 @@ class UpcomingBillsFragment : Fragment(),OnClickBill {
 
     }
     fun getUpcomingBills(){
-        billsViewModel.getUpcomingBillsByFrequency(Constants.WEEKLY).observe(this){weeklyBills->
+        billsViewModel.getUpcomingBillsByFrequency(Constants.WEEKLY)
+            .observe(this){weeklyBills->
             val adapter=UpcomingBillsAdapter(weeklyBills,this)
             binding?.rvWeekly?.layoutManager=LinearLayoutManager(requireContext())
             binding?.rvWeekly?.adapter=adapter
 
         }
-        billsViewModel.getUpcomingBillsByFrequency(Constants.MONTHLY).observe(this){monthlyBills->
+        billsViewModel.getUpcomingBillsByFrequency(Constants.MONTHLY)
+            .observe(this){monthlyBills->
             val adapter=UpcomingBillsAdapter(monthlyBills,this)
             binding?.rvMonthly?.layoutManager=LinearLayoutManager(requireContext())
             binding?.rvMonthly?.adapter=adapter
@@ -57,7 +59,7 @@ class UpcomingBillsFragment : Fragment(),OnClickBill {
     }
 
     override fun onCheckBoxMarked(upcomingBill: UpcomingBill) {
-   upcomingBill.paid=true
+        upcomingBill.paid=!upcomingBill.paid
         upcomingBill.synced=false
         billsViewModel.updateUpcomingBill(upcomingBill)
     }

@@ -21,10 +21,7 @@ val billsViewModel:BillsViewModel by viewModels()
         savedInstanceState: Bundle?
     ): View? {
  binding=FragmentPaidBillsBinding.inflate(layoutInflater,container,false)
-
         return binding?.root
-
-
     }
 
     override fun onResume() {
@@ -43,7 +40,7 @@ val billsViewModel:BillsViewModel by viewModels()
     }
 
     override fun onCheckBoxMarked(upcomingBill: UpcomingBill) {
-        upcomingBill.paid=false
+        upcomingBill.paid=!upcomingBill.paid
         upcomingBill.synced=false
         billsViewModel.updateUpcomingBill(upcomingBill)
 

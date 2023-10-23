@@ -18,7 +18,6 @@ class HomePage : AppCompatActivity() {
         setContentView(binding.root)
 
     }
-
     override fun onResume() {
         super.onResume()
         setupBottomNav()

@@ -75,6 +75,9 @@ class DateTimeUtils {
             val readableFormat = DateTimeFormatter.ofPattern("dd MMMM, yyyy")
             return readableFormat.format(dateToFormat)
         }
+        fun getDateToday():String{
+            return formatDate(LocalDateTime.now())
+        }
     }
 }
 //zero means false one means true

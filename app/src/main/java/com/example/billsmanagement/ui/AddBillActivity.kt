@@ -143,13 +143,13 @@ class AddBillActivity : AppCompatActivity() {
         showSpinner()
         binding.spDueDate.setSelection(0)
     }
+    fun View.show(){
+        this.visibility = View.VISIBLE
+    }
+
+    fun View.hide(){
+        this.visibility = View.GONE
+    }
 
 }
 
-fun View.show(){
-    this.visibility = View.VISIBLE
-}
-
-fun View.hide(){
-    this.visibility = View.GONE
-}
