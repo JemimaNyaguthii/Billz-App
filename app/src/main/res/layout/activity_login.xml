@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#8b70cd"
+    android:background="#94c2c1"
     tools:context=".ui.Login">
 
     <com.google.android.material.textfield.TextInputLayout
@@ -12,11 +12,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="214dp"
         android:layout_marginEnd="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3"
+        app:layout_constraintTop_toTopOf="parent"
         app:startIconDrawable="@drawable/baseline_email_24">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -55,24 +55,16 @@
         android:id="@+id/btnLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="172dp"
         android:layout_marginTop="36dp"
         android:layout_marginEnd="172dp"
-        android:backgroundTint="@color/black"
+        android:backgroundTint="@color/white"
         android:text="Log In"
-        android:textColor="@color/white"
+        android:textColor="#B8AF6C"
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tilPassword" />
-
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="101dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/billz" />
 
     <ProgressBar
         android:id="@+id/pdLogin"
@@ -104,8 +96,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="268dp"
         android:layout_marginTop="100dp"
+        android:layout_marginEnd="59dp"
         android:text="SignUp"
         android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tilPassword" />
 </androidx.constraintlayout.widget.ConstraintLayout>

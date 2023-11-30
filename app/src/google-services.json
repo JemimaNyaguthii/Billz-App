@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "142551695154",
+    "project_id": "billz-90818",
+    "storage_bucket": "billz-90818.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:142551695154:android:631aeb37ccfc991e65a12b",
+        "android_client_info": {
+          "package_name": "com.maimy.billz"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzeK7-_qyxSzwaye8RUzJ3is4AqjziJfU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

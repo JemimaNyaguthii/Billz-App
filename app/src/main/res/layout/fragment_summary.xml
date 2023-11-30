@@ -30,26 +30,28 @@
 
     <TextView
         android:id="@+id/tvUserName"
-        android:layout_width="99dp"
+        android:layout_width="wrap_content"
         android:layout_height="29dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="40dp"
+        app:layout_constraintEnd_toStartOf="@+id/spSummaryFrequency"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tbarAddBill"
         tools:text="Hi Jem" />
 
     <Spinner
         android:id="@+id/spSummaryFrequency"
-        android:layout_width="77dp"
+        android:layout_width="122dp"
         android:layout_height="43dp"
         android:layout_marginStart="154dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="@+id/tvUserName"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tvUserName"
-        app:layout_constraintTop_toTopOf="@+id/tvUserName"
-        app:layout_constraintTop_toBottomOf="@+id/tbarAddBill" />
+        app:layout_constraintTop_toBottomOf="@+id/tbarAddBill"
+        app:layout_constraintTop_toTopOf="@+id/tvUserName" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cvPaid"
